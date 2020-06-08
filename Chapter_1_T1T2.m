@@ -18,6 +18,9 @@ a = 1.974;
 hg = 0.9;
 nmin = 600;
 nmax = 4000;
+
+
+
 out = "";
 
 
@@ -26,19 +29,19 @@ for i = 1:5
     n = nmin:1:nmax;
     Ttq = -19.313 + 295.27 * (n / 1000) - 165.44 * (n / 1000).^2 + 40.874 * (n / 1000).^3 - 3.8445 * (n / 1000).^4;
     ua = 0.377 * r * n / (now_ig * i0);
-    Ft = Ttq * now_ig * i0 * Eta_T / r;
-
+    
     % 驱动力与行驶阻力
+    Ft = Ttq * now_ig * i0 * Eta_T / r;
     figure(1)
-    plot(ua, Ft, 'red');
+    h1 = plot(ua, Ft, 'red');
     hold on
     Ff = Total_weight * 9.8 * (f + 0 * ua);
     Fw = CDA / 21.15 * ua.^2;
-    plot(ua, Ff, 'blue');
+    h2 = plot(ua, Ff, 'blue');
     hold on
-    plot(ua, Ff + Fw, 'black');
+    h3 = plot(ua, Ff + Fw, 'black');
     hold on
-
+    legend([h1,h2,h3],"Ft 1-5","Ff","Ff+Fw");
     
     if i==5
         % 寻找最高车速
@@ -67,7 +70,6 @@ for i = 1:5
 end
 
 figure(1)
-legend('Ft1', 'Ft2', 'Ft3', 'Ft4', 'Ft5', 'Ff', 'Ff + Fw');
 title('汽车驱动力-行驶阻力平衡图');
 xlabel('ua/(km/h)');
 ylabel('Ft/n, (Ff+Fw)/n');

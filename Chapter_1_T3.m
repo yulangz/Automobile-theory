@@ -18,6 +18,10 @@ a = 1.974;
 hg = 0.9;
 nmin = 600;
 nmax = 4000;
+
+
+
+
 out = "";
 
 T_use = 0;
@@ -48,18 +52,18 @@ for i = 1:5
     plot(ua(1:good_index) ,acc_1(1:good_index));
     hold on
     
-
+    % 累计计算加速时间
     uv_index = find(ua>=V_now);
     uv_index = uv_index(1);
     acc_1_use = acc_1(uv_index:end);
-    ua_use = ua(uv_index:end); % 转成m/s
-    if i ~=1
+    ua_use = ua(uv_index:end); % m/s
+    if i ~=1 % 从二挡开始累积
         T_use = (T_use + cumtrapz(ua_use./3.6, acc_1_use));
         if ~is_find_70
             figure(2)
             plot(T_use, ua_use);
             hold on
-            t_index = find(ua_use>=70);
+            t_index = find(ua_use>=70); % 寻找累积速度是否到达70
             if t_index
                 is_find_70 = true;
                 t_index = t_index(1);
