@@ -19,7 +19,7 @@ hg = 0.9;
 nmin = 600;
 nmax = 4000;
 out = "";
-G = Total_weight * 9.8
+G = Total_weight * 9.8;
 
 
 for i = 1:5
